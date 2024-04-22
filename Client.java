@@ -8,9 +8,10 @@ public class Client {
     public static String IP = "10.136.225.22";
     public static void main(String[] args) throws Exception {
         
-        String request ="Joke 1";
+        String request ="";
         String myIP = IP;
         boolean exit = false;
+        Scanner scanner = new Scanner(System.in);
         try{
               //Get the user's request via system.in
             System.out.println("Sending request to server...");
@@ -25,7 +26,7 @@ public class Client {
             while(exit == false){
                 //get the request from user via system.in into request
                 System.out.println("Enter Start to play or Exit to quit: ");
-                request = System.console().readLine();
+                request = scanner.nextLine();
                 
                 while(!request.equals("Start") && !request.equals("Exit")){
                     System.out.println("Invalid request. Please enter a valid request: Start, Exit. Case Sensitive.");
@@ -60,7 +61,7 @@ public class Client {
                     for (int i=0; i<myWord.length(); i++){
                         System.out.println(wordCharaterList.get(i));
                     }
-                    Scanner scanner = new Scanner(System.in);
+                    
                     String guesses="";
                     int counter = 0;
                     boolean win=false;
@@ -101,8 +102,9 @@ public class Client {
                         }
                     }
                     if(!win) System.out.println("You lose!");
-                    scanner.close();
+                    
                 }
+                //forced exit
                 exit=true;
                 //close stuff on exit
                 if(exit){
@@ -110,6 +112,7 @@ public class Client {
                     in.close();
                     out.close();
                     outToServer.close();
+                    scanner.close();
                 }
             }
         }

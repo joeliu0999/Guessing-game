@@ -18,16 +18,14 @@ public class Server {
             String[] wordsArray = wordsString.split("\\s*,\\s*");
             List<String> wordBank = Arrays.asList(wordsArray);
 
-            File file = new File("start.txt");
-            int randomNumber = random.nextInt(wordBank.size());
-            String myWord =wordBank.get(randomNumber);
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(myWord);
-            fileWriter.close();
-
-            // Step 4: Close the FileWriter
-            fileWriter.close();
                 while(true) {
+                    File file = new File("start.txt");
+                    int randomNumber = random.nextInt(wordBank.size());
+                    String myWord = wordBank.get(randomNumber);
+                    FileWriter fileWriter = new FileWriter(file);
+                    fileWriter.write(myWord);
+                    fileWriter.close();
+                    
                     //input/output streams
                     System.out.println("Awaiting request from client...");
 
@@ -52,7 +50,8 @@ public class Server {
                     }
                         //send the file to the client
                     //read the file into a filestream
-                    File outFile = new File("start" + ".txt");
+
+                    File outFile = new File("start.txt");
                     FileInputStream fileIn = new FileInputStream(outFile);
                     byte[] buffer = new byte[2048];
                     int bytesRead;
