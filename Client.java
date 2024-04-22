@@ -1,7 +1,11 @@
 import java.io.*;
 import java.net.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Client {
-    public static String IP = "100.64.7.92";
+    public static String IP = "10.136.225.22";
     public static void main(String[] args) throws Exception {
         
         String request ="Joke 1";
@@ -20,11 +24,11 @@ public class Client {
             PrintWriter outToServer = new PrintWriter(out, true);
             while(exit == false){
                 //get the request from user via system.in into request
-                System.out.println("Enter a request: ");
+                System.out.println("Enter Start to play or Exit to quit: ");
                 request = System.console().readLine();
                 //error handling - allow only "Joke 1" or "Joke 2" or "Joke 3" or "Exit"
-                while(!request.equals("Joke 1") && !request.equals("Joke 2") && !request.equals("Joke 3") && !request.equals("Exit")){
-                    System.out.println("Invalid request. Please enter a valid request: Exit, Joke 1, Joke 2, or Joke 3. Case Sensitive.");
+                while(!request.equals("Start") && !request.equals("Exit")){
+                    System.out.println("Invalid request. Please enter a valid request: Start, Exit. Case Sensitive.");
                     request = System.console().readLine();
                 }
                 outToServer.println(request);
@@ -50,11 +54,28 @@ public class Client {
                     while ((line = reader.readLine()) != null) {
                         fileContent.append(line).append("\n"); // Append each line with a newline character
                     }
-        
-                    // Close the file
                     reader.close();
-                    System.out.println(fileContent.toString());
+
+                    String myWord= fileContent.toString();
+                    System.out.println(myWord);
+                    System.out.println("the word is "+myWord.length()+" charater long");
                     //
+                    List<Character> wordCharaterList = new ArrayList<>();
+                    for (int i=0; i<myWord.length();i++){
+                        wordCharaterList.add(myWord.charAt(i));
+                    }
+                    for (int i=0; i<myWord.length(); i++){
+                        System.out.println(wordCharaterList.get(i));
+                    }
+                    Scanner scanner = new Scanner(System.in);
+                    String guesses="";
+                    while(!guesses.equals("Exit")){
+                        System.out.print("Enter a letter: ");
+                        guesses = scanner.nextLine();
+                        System.out.println(guesses);
+                    }
+                    scanner.close();
+
 
                 }
                 //close stuff on exit

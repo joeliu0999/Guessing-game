@@ -1,17 +1,28 @@
 import java.io.*;
 import java.net.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
 public class Server {
     public static void main(String argv[]) throws Exception{
         try{
+            Random random = new Random();
             String clientRequest = null;
             ServerSocket welcomeSocket = new ServerSocket(8099);
             System.out.println("attempting to connect to client...");
             Socket connectionSocket = welcomeSocket.accept();
             System.out.println("Client connected!");
 
+            String wordsString = "Elephant, Computer, Rainbow, Butterfly, Sunshine, Guitar, Pizza, Universe, Chocolate, Adventure, Mountain, Jellyfish, Strawberry, Waterfall, Friendship, Dragonfly, Happiness, Cucumber, Galaxy, Keyboard, Zebra, Octopus, Watermelon, Pineapple, Dragon, Tiger, Lion, Ocean, Beach, Vacation, Moonlight, Starlight, Fireworks, Carnival, Carousel, Penguin, Kangaroo, Giraffe, Rhinoceros, Moon, Constellation, Satellite, Supernova, Astronaut, Spaceship, Rocket, Observatory, Eclipse, Planetarium, Astronomer, Shooting Star, Black Hole, Comet, Solar System, Milky Way, Nebula, Orbit, Celestial, Cosmology, Spacewalk, Gravity, Meteor, Aurora, Astronomy, Universe.";
+            String[] wordsArray = wordsString.split("\\s*,\\s*");
+            List<String> wordBank = Arrays.asList(wordsArray);
+
             File file = new File("word.txt");
+            int randomNumber = random.nextInt(wordBank.size());
+            String myWord =wordBank.get(randomNumber);
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write("Hello, this is some content written to the file!");
+            fileWriter.write(myWord);
             fileWriter.close();
 
             // Step 4: Close the FileWriter
@@ -41,7 +52,7 @@ public class Server {
                     }
                         //send the file to the client
                     //read the file into a filestream
-                    File outFile = new File("Out/" + clientRequest + ".txt");
+                    File outFile = new File("word" + ".txt");
                     FileInputStream fileIn = new FileInputStream(outFile);
                     byte[] buffer = new byte[2048];
                     int bytesRead;
