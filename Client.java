@@ -47,12 +47,12 @@ public class Client {
                     System.out.println(request + " received from server");
                     
                     //
-                    BufferedReader reader = new BufferedReader(new FileReader("In-client/" +request+".txt"));
+                    BufferedReader reader = new BufferedReader(new FileReader(request+".txt"));
                     String line;
         
                     // Read each line and append it to the fileContent StringBuilder
                     while ((line = reader.readLine()) != null) {
-                        fileContent.append(line).append("\n"); // Append each line with a newline character
+                        fileContent.append(line); // Append each line with a newline character
                     }
                     reader.close();
 
@@ -61,23 +61,55 @@ public class Client {
                     System.out.println("the word is "+myWord.length()+" charater long");
                     //
                     List<Character> wordCharaterList = new ArrayList<>();
+                    List<Character> initList = new ArrayList<>();
                     for (int i=0; i<myWord.length();i++){
                         wordCharaterList.add(myWord.charAt(i));
+                        initList.add('_');
                     }
+                    
                     for (int i=0; i<myWord.length(); i++){
                         System.out.println(wordCharaterList.get(i));
                     }
                     Scanner scanner = new Scanner(System.in);
                     String guesses="";
-                    while(!guesses.equals("Exit")){
+                    int counter = 0;
+                    boolean win=false;
+                    while(counter < 7 && !win){
+                        boolean correct = false;
                         System.out.print("Enter a letter: ");
                         guesses = scanner.nextLine();
-                        System.out.println(guesses);
+                        if (guesses.equals("Exit")){
+                            break;
+                        }
+                        if (guesses.length() == 1 && Character.isLetter(guesses.charAt(0))){
+                            for (int i=0; i<wordCharaterList.size();i++){
+                                if(guesses.equals(String.valueOf(wordCharaterList.get(i)))){
+                                    initList.set(i,wordCharaterList.get(i));
+                                    correct = true;
+                                }
+                            }
+                            if(correct){
+                                System.out.println(guesses+" is in the word");
+                            }
+                            else{
+                                System.out.println(guesses+" is not in the word");
+                                counter++;
+                            }
+                            System.out.println(7-counter+ " chance left");
+                        }
+                        for(int i=0;i<initList.size();i++){
+                            System.out.print(initList.get(i));
+                        }
+                        System.out.println("\n");
+                        if (initList.equals(wordCharaterList)){
+                            System.out.println("You win!");
+                            win=true;
+                        }
                     }
+                    if(!win) System.out.println("You lose!");
                     scanner.close();
-
-
                 }
+                exit=true;
                 //close stuff on exit
                 if(exit){
                     clientSocket.close();
