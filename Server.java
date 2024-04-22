@@ -8,6 +8,14 @@ public class Server {
             System.out.println("attempting to connect to client...");
             Socket connectionSocket = welcomeSocket.accept();
             System.out.println("Client connected!");
+
+            File file = new File("word.txt");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write("Hello, this is some content written to the file!");
+            fileWriter.close();
+
+            // Step 4: Close the FileWriter
+            fileWriter.close();
                 while(true) {
                     //input/output streams
                     System.out.println("Awaiting request from client...");
