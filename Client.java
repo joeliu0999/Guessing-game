@@ -26,7 +26,7 @@ public class Client {
                 //get the request from user via system.in into request
                 System.out.println("Enter Start to play or Exit to quit: ");
                 request = System.console().readLine();
-                //error handling - allow only "Joke 1" or "Joke 2" or "Joke 3" or "Exit"
+                
                 while(!request.equals("Start") && !request.equals("Exit")){
                     System.out.println("Invalid request. Please enter a valid request: Start, Exit. Case Sensitive.");
                     request = System.console().readLine();
@@ -35,16 +35,6 @@ public class Client {
                 if(request == null || request.equals("Exit")){
                     exit = true;
                 }else{
-                    //receive the file from server
-                    FileOutputStream fileOut = new FileOutputStream("In-client/" + request + ".txt");
-                    byte[] buffer = new byte[2048];
-                    //read the file from server and write it to the file - while loop to deal with larger files 
-                    int bytesRead;
-                    if ((bytesRead = in.read(buffer)) != -1){
-                        fileOut.write(buffer, 0, bytesRead);
-                    }
-                    fileOut.close(); 
-                    System.out.println(request + " received from server");
                     
                     //
                     BufferedReader reader = new BufferedReader(new FileReader(request+".txt"));
@@ -97,6 +87,10 @@ public class Client {
                             }
                             System.out.println(7-counter+ " chance left");
                         }
+                        else{
+                            System.out.println("invalid input");
+                        }
+
                         for(int i=0;i<initList.size();i++){
                             System.out.print(initList.get(i));
                         }
