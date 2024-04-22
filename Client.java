@@ -24,6 +24,7 @@ public class Client {
             //print writer to send request to server
             PrintWriter outToServer = new PrintWriter(out, true);
             while(exit == false){
+                Thread.sleep(1000);
                 //get the request from user via system.in into request
                 System.out.println("Enter Start to play or Exit to quit: ");
                 request = scanner.nextLine();
@@ -48,7 +49,6 @@ public class Client {
                     reader.close();
 
                     String myWord= fileContent.toString();
-                    System.out.println(myWord);
                     System.out.println("the word is "+myWord.length()+" charater long");
                     //
                     List<Character> wordCharaterList = new ArrayList<>();
@@ -56,10 +56,6 @@ public class Client {
                     for (int i=0; i<myWord.length();i++){
                         wordCharaterList.add(myWord.charAt(i));
                         initList.add('_');
-                    }
-                    
-                    for (int i=0; i<myWord.length(); i++){
-                        System.out.println(wordCharaterList.get(i));
                     }
                     
                     String guesses="";
